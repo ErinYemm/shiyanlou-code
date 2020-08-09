@@ -31,11 +31,14 @@ while num != 4:
             for i in range(len(bag_card)):
                 print(bag_card[i])
         else:
-            print("你的背包空空如也")
+            print("你的背包空空如也，快来抽取些英雄吧！")
         print('------------------')
     if num == 3:
-        bag_card.sort()
-        for i in range(len(bag_card)):
-            print(bag_card[i])
+        if len(bag_card) > 0:
+            bag_card.sort()
+            for i in range(len(bag_card)):
+                print(bag_card[i])
+        else:
+            print("你的背包空空如也，快来抽取些英雄吧！")
         print('------------------')
 
