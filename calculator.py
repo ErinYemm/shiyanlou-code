@@ -35,9 +35,9 @@ def calculator(num):
         tax = shouldPay * 0.45 - 15160
 
     #最终收入为税前收入减去税款，并保留两位小数
-    salary = round(num - tax, 2)
+    salary = num - tax
 
-    return salary
+    return "{:.2f}".format(salary)
 
 print('你的税后收入是： {}'.format(calculator(income)))
 
