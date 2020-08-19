@@ -1,5 +1,7 @@
+import sys
+
 #原始收入，获取用户输入，转换为int
-income = int(input("请输入你的薪资： "))
+#income = int(input("请输入你的薪资： "))
 
 #税后收入
 salary = 0
@@ -10,11 +12,16 @@ shouldPay = 0
 #纳税金额
 tax = 0
 
-def calculator(num):
+#五险一金
+social_insurance = 0
+
+def calculate(num):
     """计算税后薪资的函数，参数为原始收入"""
+    #应缴纳五险一金
+    social_insurance_point = 0.08 + 0.02 + 0.005 + 0.06
 
     #应纳税所得额为收入减去起征点5000元
-    shouldPay = num - 5000
+    shouldPay = int(num) * (1 - social_insurance_point) -  5000
 
     #根据扣税表不同薪资的档次作条件判断
     if shouldPay <= 0:
@@ -35,9 +42,20 @@ def calculator(num):
         tax = shouldPay * 0.45 - 15160
 
     #最终收入为税前收入减去税款，并保留两位小数
-    salary = num - tax
+    salary = int(num) * (1 - social_insurance_point)  - tax  
 
     return "{:.2f}".format(salary)
 
-print('你的税后收入是： {}'.format(calculator(income)))
+def main():
+    for item in sys.argv[1:]:
+        #解析用户ID和工资
+        uid, income = item.split(':')
+        try:
+            income = int(income)
+        except ValueError:
+            print('请在薪资位置输入数字')
+            continue
+        print('{}：{}'.format(uid, calculate(income)))
 
+if __name__ == '__main__':
+    main()
