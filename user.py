@@ -22,7 +22,7 @@ class User:
     def check_password(self, password):
         '''检查hash密码的方法，返回布尔值
         '''
-        return check_password_hash(password)
+        return check_password_hash(self.password_hash, password)
 
 def main():
     userList = []  #创建用户列表
@@ -59,10 +59,17 @@ def main():
             password = input('password:')
 
             #遍历用户列表，判断email、密码是否正确
+            inList = False
             for user in userList:
                 if user.check_email(email):
                     inList = True
-
+                    if user.check_password(password):
+                        print('登录成功！')
+                    else:
+                        print('用户名或密码有误！')
+                        break
+                if inList == False:
+                    print('请输入正确的email')
 
         if choose == 3:
             break
